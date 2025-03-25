@@ -74,7 +74,6 @@ function App() {
           <Outlet />
         </main>
         <img src={Logo} alt="Logo"/>
-        {/* Rest of your app */}
       </div>
       <Footer />
       <Toaster />
