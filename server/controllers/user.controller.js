@@ -197,7 +197,7 @@ export async function logoutController(request,response){
         })
 
         return response.json({
-            message : "succedfully loged out",
+            message : "Succesfully Loged out",
             error : false,
             success : true
         })
