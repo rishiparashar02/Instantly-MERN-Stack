@@ -7,7 +7,7 @@ const uploadImageController = async(request,response)=>{
         const uploadImage = await uploadImageClodinary(file)
 
         return response.json({
-            message : "Upload done",
+            message : "Done Uploading",
             data : uploadImage,
             success : true,
             error : false

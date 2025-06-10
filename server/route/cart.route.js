@@ -5,7 +5,7 @@ import { addToCartItemController, deleteCartItemQtyController, getCartItemContro
 const cartRouter = Router()
 
 cartRouter.post('/create',auth,addToCartItemController)
-cartRouter.get("/get",auth,getCartItemController)
+cartRouter.get("/get",auth, getCartItemController)
 cartRouter.put('/update-qty',auth,updateCartItemQtyController)
 cartRouter.delete('/delete-cart-item',auth,deleteCartItemQtyController)
 
