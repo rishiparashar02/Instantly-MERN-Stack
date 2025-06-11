@@ -45,6 +45,24 @@ export const AddCategoryController = async(request,response)=>{
     }
 }
 
+export const getCategoryController = async(request,response)=>{
+    try {
+        
+        const data = await CategoryModel.find().sort({ createdAt : -1 })
+
+        return response.json({
+            data : data,
+            error : false,
+            success : true
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message : error.messsage || error,
+            error : true,
+            success : false
+        })
+    }
+}
 
 export const deleteCategoryController = async(request,response)=>{
     try {
