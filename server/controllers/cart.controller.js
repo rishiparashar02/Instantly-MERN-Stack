@@ -78,6 +78,39 @@ export const getCartItemController = async(request,response)=>{
     }
 }
 
+export const updateCartItemQtyController = async(request,response)=>{
+    try {
+        const userId = request.userId 
+        const { _id,qty } = request.body
+
+        if(!_id ||  !qty){
+            return response.status(400).json({
+                message : "provide _id, qty"
+            })
+        }
+
+        const updateCartitem = await CartProductModel.updateOne({
+            _id : _id,
+            userId : userId
+        },{
+            quantity : qty
+        })
+
+        return response.json({
+            message : "Updated cart",
+            success : true,
+            error : false, 
+            data : updateCartitem
+        })
+
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
 
 export const deleteCartItemQtyController = async(request,response)=>{
     try {
