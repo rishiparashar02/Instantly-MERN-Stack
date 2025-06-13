@@ -89,3 +89,26 @@ export const updateAddressController = async(request,response)=>{
     }
 }
 
+export const deleteAddresscontroller = async(request,response)=>{
+    try {
+        const userId = request.userId // auth middleware    
+        const { _id } = request.body 
+
+        const disableAddress = await AddressModel.updateOne({ _id : _id, userId},{
+            status : false
+        })
+
+        return response.json({
+            message : "Address remove",
+            error : false,
+            success : true,
+            data : disableAddress
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
