@@ -1,4 +1,5 @@
 import AddressModel from "../models/address.model.js";
+import UserModel from "../models/user.model.js"; 
 
 export const addAddressController = async(request,response)=>{
     try {
@@ -13,6 +14,13 @@ export const addAddressController = async(request,response)=>{
             pincode,
             mobile,
             userId : userId 
+        })
+        const saveAddress = await createAddress.save()
+
+        const addUserAddressId = await UserModel.findByIdAndUpdate(userId,{
+            $push : {
+                address_details : saveAddress._id
+            }
         })
 
         return response.json({
