@@ -282,6 +282,12 @@ export const searchProduct = async(request,response)=>{
             }
         } : {}
 
+        const skip = ( page - 1) * limit
+
+        const [data,dataCount] = await Promise.all([
+            ProductModel.find(query).sort({ createdAt  : -1 }).skip(skip).limit(limit).populate('category subCategory'),
+            ProductModel.countDocuments(query)
+        ])
 
         return response.json({
             message : "Product data",
