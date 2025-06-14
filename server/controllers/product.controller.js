@@ -247,6 +247,14 @@ export const deleteProductDetails = async(request,response)=>{
             })
         }
 
+        const deleteProduct = await ProductModel.deleteOne({_id : _id })
+
+        return response.json({
+            message : "Deleted successfully",
+            error : false,
+            success : true,
+            data : deleteProduct
+        })
     } catch (error) {
         return response.status(500).json({
             message : error.message || error,
