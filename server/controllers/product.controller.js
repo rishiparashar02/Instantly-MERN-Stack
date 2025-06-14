@@ -143,6 +143,21 @@ export const getProductByCategoryAndSubCategory  = async(request,response)=>{
             page = 1
         }
 
+        if(!limit){
+            limit = 10
+        }
+
+        const query = {
+            category : { $in :categoryId  },
+            subCategory : { $in : subCategoryId }
+        }
+
+        const skip = (page - 1) * limit
+
+        const [data,dataCount] = await Promise.all([
+            ProductModel.find(query).sort({createdAt : -1 }).skip(skip).limit(limit),
+            ProductModel.countDocuments(query)
+        ])
 
         return response.json({
             message : "Product list",
