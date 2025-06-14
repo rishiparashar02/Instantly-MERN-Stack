@@ -1,3 +1,5 @@
+import ProductModel from "../models/product.model.js";
+
 export const createProductController = async(request,response)=>{
     try {
         const { 
@@ -6,8 +8,11 @@ export const createProductController = async(request,response)=>{
             category,
             subCategory,
             unit,
+            stock,
             price,
+            discount,
             description,
+            more_details,
         } = request.body 
 
         if(!name || !image[0] || !category[0] || !subCategory[0] || !unit || !price || !description ){
@@ -17,6 +22,20 @@ export const createProductController = async(request,response)=>{
                 success : false
             })
         }
+
+        const product = new ProductModel({
+            name ,
+            image ,
+            category,
+            subCategory,
+            unit,
+            stock,
+            price,
+            discount,
+            description,
+            more_details,
+        })
+        const saveProduct = await product.save()
 
         return response.json({
             message : "Product Created Successfully",
