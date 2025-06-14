@@ -233,3 +233,25 @@ export const updateProductDetails = async(request,response)=>{
         })
     }
 }
+
+//delete product
+export const deleteProductDetails = async(request,response)=>{
+    try {
+        const { _id } = request.body 
+
+        if(!_id){
+            return response.status(400).json({
+                message : "provide _id ",
+                error : true,
+                success : false
+            })
+        }
+
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
