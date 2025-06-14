@@ -263,3 +263,43 @@ export const deleteProductDetails = async(request,response)=>{
         })
     }
 }
+
+//search product
+export const searchProduct = async(request,response)=>{
+    try {
+        let { search, page , limit } = request.body 
+
+        if(!page){
+            page = 1
+        }
+        if(!limit){
+            limit  = 10
+        }
+
+        const query = search ? {
+            $text : {
+                $search : search
+            }
+        } : {}
+
+
+        return response.json({
+            message : "Product data",
+            error : false,
+            success : true,
+            data : data,
+            totalCount :dataCount,
+            totalPage : Math.ceil(dataCount/limit),
+            page : page,
+            limit : limit 
+        })
+
+
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
