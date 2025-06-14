@@ -127,3 +127,38 @@ export const getProductByCategory = async(request,response)=>{
     }
 }
 
+export const getProductByCategoryAndSubCategory  = async(request,response)=>{
+    try {
+        const { categoryId,subCategoryId,page,limit } = request.body
+
+        if(!categoryId || !subCategoryId){
+            return response.status(400).json({
+                message : "Provide categoryId and subCategoryId",
+                error : true,
+                success : false
+            })
+        }
+
+        if(!page){
+            page = 1
+        }
+
+
+        return response.json({
+            message : "Product list",
+            data : data,
+            totalCount : dataCount,
+            page : page,
+            limit : limit,
+            success : true,
+            error : false
+        })
+
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
