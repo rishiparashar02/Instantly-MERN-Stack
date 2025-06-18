@@ -54,3 +54,44 @@ export const pricewithDiscount = (price,dis = 1)=>{
     return actualPrice
 }
 
+export async function paymentController(request,response){
+    try {
+        const userId = request.userId // auth middleware 
+        const { list_items, totalAmt, addressId,subTotalAmt } = request.body 
+
+        const user = await UserModel.findById(userId)
+
+        const line_items  = list_items.map(item =>{
+            return{
+               price_data : {
+                    currency : 'inr',
+                    product_data : {
+                        name : item.productId.name,
+                        images : item.productId.image,
+                        metadata : {
+                            productId : item.productId._id
+                        }
+                    },
+                    unit_amount : pricewithDiscount(item.productId.price,item.productId.discount) * 100   
+               },
+               adjustable_quantity : {
+                    enabled : true,
+                    minimum : 1
+               },
+               quantity : item.quantity 
+            }
+        })
+
+        const session = await Stripe.checkout.sessions.create(params)
+
+        return response.status(200).json(session)
+
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
+
