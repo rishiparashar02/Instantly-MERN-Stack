@@ -82,6 +82,20 @@ export async function paymentController(request,response){
             }
         })
 
+        const params = {
+            submit_type : 'pay',
+            mode : 'payment',
+            payment_method_types : ['card'],
+            customer_email : user.email,
+            metadata : {
+                userId : userId,
+                addressId : addressId
+            },
+            line_items : line_items,
+            success_url : `${process.env.FRONTEND_URL}/success`,
+            cancel_url : `${process.env.FRONTEND_URL}/cancel`
+        }
+
         const session = await Stripe.checkout.sessions.create(params)
 
         return response.status(200).json(session)
