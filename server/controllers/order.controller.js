@@ -109,3 +109,38 @@ export async function paymentController(request,response){
     }
 }
 
+
+const getOrderProductItems = async({
+    lineItems,
+    userId,
+    addressId,
+    paymentId,
+    payment_status,
+ })=>{
+    const productList = []
+
+    if(lineItems?.data?.length){
+        for(const item of lineItems.data){
+            const product = await Stripe.products.retrieve(item.price.product)
+
+            const paylod = {
+                userId : userId,
+                orderId : `ORD-${new mongoose.Types.ObjectId()}`,
+                productId : product.metadata.productId, 
+                product_details : {
+                    name : product.name,
+                    image : product.images
+                } ,
+                paymentId : paymentId,
+                payment_status : payment_status,
+                delivery_address : addressId,
+                subTotalAmt  : Number(item.amount_total / 100),
+                totalAmt  :  Number(item.amount_total / 100),
+            }
+
+            productList.push(paylod)
+        }
+    }
+
+    return productList
+}
