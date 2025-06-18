@@ -12,6 +12,21 @@ export const AddSubCategoryController = async(request,response)=>{
             })
         }
 
+        const payload = {
+            name,
+            image,
+            category
+        }
+
+        const createSubCategory = new SubCategoryModel(payload)
+        const save = await createSubCategory.save()
+
+        return response.json({
+            message : "Sub Category Created",
+            data : save,
+            error : false,
+            success : true
+        })
 
     } catch (error) {
         return response.status(500).json({
