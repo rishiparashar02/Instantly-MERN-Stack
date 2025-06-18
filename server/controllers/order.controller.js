@@ -8,6 +8,23 @@ import mongoose from "mongoose";
         const userId = request.userId // auth middleware 
         const { list_items, totalAmt, addressId,subTotalAmt } = request.body 
 
+        const payload = list_items.map(el => {
+            return({
+                userId : userId,
+                orderId : `ORD-${new mongoose.Types.ObjectId()}`,
+                productId : el.productId._id, 
+                product_details : {
+                    name : el.productId.name,
+                    image : el.productId.image
+                } ,
+                paymentId : "",
+                payment_status : "CASH ON DELIVERY",
+                delivery_address : addressId ,
+                subTotalAmt  : subTotalAmt,
+                totalAmt  :  totalAmt,
+            })
+        })
+
         const generatedOrder = await OrderModel.insertMany(payload)
 
         ///remove from the cart
@@ -29,3 +46,5 @@ import mongoose from "mongoose";
         })
     }
 }
+
+
