@@ -63,7 +63,28 @@ const UploadSubCategoryModel = ({close, fetchData}) => {
                     <IoClose size={25}/>
                 </button>
             </div>
+            <form className='my-3 grid gap-3' onSubmit={handleSubmitSubCategory}>
+                    <div className='grid gap-1'>
+                        <label htmlFor='name'>Name</label>
+                        <input 
+                            id='name'
+                            name='name'
+                            value={subCategoryData.name}
+                            onChange={handleChange}
+                            className='p-3 bg-blue-50 border outline-none focus-within:border-primary-200 rounded '
+                        />
+                    </div>
 
+                    <button
+                        className={`px-4 py-2 border
+                            ${subCategoryData?.name && subCategoryData?.image && subCategoryData?.category[0] ? "bg-primary-200 hover:bg-primary-100" : "bg-gray-200"}    
+                            font-semibold
+                        `}
+                    >
+                        Submit
+                    </button>
+                    
+            </form>
         </div>
     </section>
   )
