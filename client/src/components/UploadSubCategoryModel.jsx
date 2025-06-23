@@ -27,6 +27,17 @@ const UploadSubCategoryModel = ({close, fetchData}) => {
         })
     }
 
+        const response = await uploadImage(file)
+        const { data : ImageResponse } = response
+
+        setSubCategoryData((preve)=>{
+            return{
+                ...preve,
+                image : ImageResponse.data.url
+            }
+        })
+    }
+
     const handleSubmitSubCategory = async(e)=>{
         e.preventDefault()
 
