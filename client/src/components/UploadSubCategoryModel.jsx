@@ -102,6 +102,36 @@ const UploadSubCategoryModel = ({close, fetchData}) => {
                             className='p-3 bg-blue-50 border outline-none focus-within:border-primary-200 rounded '
                         />
                     </div>
+                    <div className='grid gap-1'>
+                        <p>Image</p>
+                        <div className='flex flex-col lg:flex-row items-center gap-3'>
+                            <div className='border h-36 w-full lg:w-36 bg-blue-50 flex items-center justify-center'>
+                                {
+                                    !subCategoryData.image ? (
+                                        <p className='text-sm text-neutral-400'>No Image</p>
+                                    ) : (
+                                        <img
+                                            alt='subCategory'
+                                            src={subCategoryData.image}
+                                            className='w-full h-full object-scale-down'
+                                        />
+                                    )
+                                }
+                            </div>
+                            <label htmlFor='uploadSubCategoryImage'>
+                                <div className='px-4 py-1 border border-primary-100 text-primary-200 rounded hover:bg-primary-200 hover:text-neutral-900 cursor-pointer  '>
+                                    Upload Image
+                                </div>
+                                <input 
+                                    type='file'
+                                    id='uploadSubCategoryImage'
+                                    className='hidden'
+                                    onChange={handleUploadSubCategoryImage}
+                                />
+                            </label>
+                            
+                        </div>
+                    </div>
 
                     <button
                         className={`px-4 py-2 border
