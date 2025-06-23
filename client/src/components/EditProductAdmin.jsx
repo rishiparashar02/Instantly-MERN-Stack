@@ -179,6 +179,17 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
               <ViewImage url={ViewImageURL} close={() => setViewImageURL("")} />
             )
           }
+
+          {
+            openAddField && (
+              <AddFieldComponent
+                value={fieldName}
+                onChange={(e) => setFieldName(e.target.value)}
+                submit={handleAddField}
+                close={() => setOpenAddField(false)}
+              />
+            )
+          }
         </section>
       </div>
     </section>
