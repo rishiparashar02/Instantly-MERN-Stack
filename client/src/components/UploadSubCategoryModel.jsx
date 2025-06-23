@@ -132,6 +132,51 @@ const UploadSubCategoryModel = ({close, fetchData}) => {
                             
                         </div>
                     </div>
+                    <div className='grid gap-1'>
+                        <label>Select Category</label>
+                        <div className='border focus-within:border-primary-200 rounded'>
+                            {/*display value**/}
+                            <div className='flex flex-wrap gap-2'>
+                                {
+                                    subCategoryData.category.map((cat,index)=>{
+                                        return(
+                                            <p key={cat._id+"selectedValue"} className='bg-white shadow-md px-1 m-1 flex items-center gap-2'>
+                                                {cat.name}
+                                                <div className='cursor-pointer hover:text-red-600' onClick={()=>handleRemoveCategorySelected(cat._id)}>
+                                                    <IoClose size={20}/>
+                                                </div>
+                                            </p>
+                                        )
+                                    })
+                                }
+                            </div>
+
+                            {/*select category**/}
+                            <select
+                                className='w-full p-2 bg-transparent outline-none border'
+                                onChange={(e)=>{
+                                    const value = e.target.value
+                                    const categoryDetails = allCategory.find(el => el._id == value)
+                                    
+                                    setSubCategoryData((preve)=>{
+                                        return{
+                                            ...preve,
+                                            category : [...preve.category,categoryDetails]
+                                        }
+                                    })
+                                }}
+                            >
+                                <option value={""}>Select Category</option>
+                                {
+                                    allCategory.map((category,index)=>{
+                                        return(
+                                            <option value={category?._id} key={category._id+"subcategory"}>{category?.name}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
 
                     <button
                         className={`px-4 py-2 border
