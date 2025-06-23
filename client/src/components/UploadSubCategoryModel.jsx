@@ -27,6 +27,13 @@ const UploadSubCategoryModel = ({close, fetchData}) => {
         })
     }
 
+    const handleUploadSubCategoryImage = async(e)=>{
+        const file = e.target.files[0]
+
+        if(!file){
+            return
+        }
+
         const response = await uploadImage(file)
         const { data : ImageResponse } = response
 
@@ -34,6 +41,16 @@ const UploadSubCategoryModel = ({close, fetchData}) => {
             return{
                 ...preve,
                 image : ImageResponse.data.url
+            }
+        })
+    }
+
+    const handleRemoveCategorySelected = (categoryId)=>{
+        const index = subCategoryData.category.findIndex(el => el._id === categoryId )
+        subCategoryData.category.splice(index,1)
+        setSubCategoryData((preve)=>{
+            return{
+                ...preve
             }
         })
     }
