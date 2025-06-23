@@ -24,6 +24,28 @@ const UploadCategoryModel = ({close, fetchData}) => {
         })
     }
 
+    const handleSubmit = async(e)=>{
+        e.preventDefault()
+
+        try {
+            setLoading(true)
+            const response = await Axios({
+                ...SummaryApi.addCategory,
+                data : data
+            })
+            const { data : responseData } = response
+
+            if(responseData.success){
+                toast.success(responseData.message)
+                close()
+                fetchData()
+            }
+        } catch (error) {
+            AxiosToastError(error)
+        }finally{
+            setLoading(false)
+        }
+    }
 
   return (
     <section className='fixed top-0 bottom-0 left-0 right-0 p-4 bg-neutral-800 bg-opacity-60 flex items-center justify-center'>
