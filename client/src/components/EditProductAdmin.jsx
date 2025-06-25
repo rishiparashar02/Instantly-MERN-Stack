@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
+import { FaCloudUploadAlt } from "react-icons/fa";
+import uploadImage from '../utils/UploadImage';
+import Loading from '../components/Loading';
 import ViewImage from '../components/ViewImage';
+import { MdDelete } from "react-icons/md";
+import { useSelector } from 'react-redux'
 import { IoClose } from "react-icons/io5";
 import AddFieldComponent from '../components/AddFieldComponent';
 import Axios from '../utils/Axios';
 import SummaryApi from '../common/SummaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import successAlert from '../utils/SuccessAlert';
+import { useEffect } from 'react';
 
 const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
   const [data, setData] = useState({
@@ -21,7 +27,9 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
     description: propsData.description,
     more_details: propsData.more_details || {},
   })
+  const [imageLoading, setImageLoading] = useState(false)
   const [ViewImageURL, setViewImageURL] = useState("")
+
   const [openAddField, setOpenAddField] = useState(false)
   const [fieldName, setFieldName] = useState("")
 
@@ -33,6 +41,36 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
       return {
         ...preve,
         [name]: value
+      }
+    })
+  }
+
+  const handleUploadImage = async (e) => {
+    const file = e.target.files[0]
+
+    if (!file) {
+      return
+    }
+    setImageLoading(true)
+    const response = await uploadImage(file)
+    const { data: ImageResponse } = response
+    const imageUrl = ImageResponse.data.url
+
+    setData((preve) => {
+      return {
+        ...preve,
+        image: [...preve.image, imageUrl]
+      }
+    })
+    setImageLoading(false)
+
+  }
+
+  const handleDeleteImage = async (index) => {
+    data.image.splice(index, 1)
+    setData((preve) => {
+      return {
+        ...preve
       }
     })
   }
@@ -129,7 +167,51 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
                   className='bg-blue-50 p-2 outline-none border focus-within:border-primary-200 rounded resize-none'
                 />
               </div>
+              <div>
+                <p className='font-medium'>Image</p>
+                <div>
+                  <label htmlFor='productImage' className='bg-blue-50 h-24 border rounded flex justify-center items-center cursor-pointer'>
+                    <div className='text-center flex justify-center items-center flex-col'>
+                      {
+                        imageLoading ? <Loading /> : (
+                          <>
+                            <FaCloudUploadAlt size={35} />
+                            <p>Upload Image</p>
+                          </>
+                        )
+                      }
+                    </div>
+                    <input
+                      type='file'
+                      id='productImage'
+                      className='hidden'
+                      accept='image/*'
+                      onChange={handleUploadImage}
+                    />
+                  </label>
+                  {/**display uploded image*/}
+                  <div className='flex flex-wrap gap-4'>
+                    {
+                      data.image.map((img, index) => {
+                        return (
+                          <div key={img + index} className='h-20 mt-1 w-20 min-w-20 bg-blue-50 border relative group'>
+                            <img
+                              src={img}
+                              alt={img}
+                              className='w-full h-full object-scale-down cursor-pointer'
+                              onClick={() => setViewImageURL(img)}
+                            />
+                            <div onClick={() => handleDeleteImage(index)} className='absolute bottom-0 right-0 p-1 bg-red-600 hover:bg-red-600 rounded text-white hidden group-hover:block cursor-pointer'>
+                              <MdDelete />
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
 
+              </div>
 
 
               {/**add more field**/}
