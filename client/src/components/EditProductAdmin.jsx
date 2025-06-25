@@ -364,6 +364,19 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
                 />
               </div>
 
+              <div className='grid gap-1'>
+                <label htmlFor='discount' className='font-medium'>Discount</label>
+                <input
+                  id='discount'
+                  type='number'
+                  placeholder='Enter product discount'
+                  name='discount'
+                  value={data.discount}
+                  onChange={handleChange}
+                  required
+                  className='bg-blue-50 p-2 outline-none border focus-within:border-primary-200 rounded'
+                />
+              </div>
 
 
               {/**add more field**/}
