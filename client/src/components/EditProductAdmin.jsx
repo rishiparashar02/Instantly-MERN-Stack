@@ -31,6 +31,8 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
   const [ViewImageURL, setViewImageURL] = useState("")
   const allCategory = useSelector(state => state.product.allCategory)
   const [selectCategory, setSelectCategory] = useState("")
+  const [selectSubCategory, setSelectSubCategory] = useState("")
+  const allSubCategory = useSelector(state => state.product.allSubCategory)
 
   const [openAddField, setOpenAddField] = useState(false)
   const [fieldName, setFieldName] = useState("")
@@ -79,6 +81,14 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
 
   const handleRemoveCategory = async (index) => {
     data.category.splice(index, 1)
+    setData((preve) => {
+      return {
+        ...preve
+      }
+    })
+  }
+  const handleRemoveSubCategory = async (index) => {
+    data.subCategory.splice(index, 1)
     setData((preve) => {
       return {
         ...preve
@@ -258,6 +268,50 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
                           <div key={c._id + index + "productsection"} className='text-sm flex items-center gap-1 bg-blue-50 mt-2'>
                             <p>{c.name}</p>
                             <div className='hover:text-red-500 cursor-pointer' onClick={() => handleRemoveCategory(index)}>
+                              <IoClose size={20} />
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className='grid gap-1'>
+                <label className='font-medium'>Sub Category</label>
+                <div>
+                  <select
+                    className='bg-blue-50 border w-full p-2 rounded'
+                    value={selectSubCategory}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      const subCategory = allSubCategory.find(el => el._id === value)
+
+                      setData((preve) => {
+                        return {
+                          ...preve,
+                          subCategory: [...preve.subCategory, subCategory]
+                        }
+                      })
+                      setSelectSubCategory("")
+                    }}
+                  >
+                    <option value={""} className='text-neutral-600'>Select Sub Category</option>
+                    {
+                      allSubCategory.map((c, index) => {
+                        return (
+                          <option value={c?._id}>{c.name}</option>
+                        )
+                      })
+                    }
+                  </select>
+                  <div className='flex flex-wrap gap-3'>
+                    {
+                      data.subCategory.map((c, index) => {
+                        return (
+                          <div key={c._id + index + "productsection"} className='text-sm flex items-center gap-1 bg-blue-50 mt-2'>
+                            <p>{c.name}</p>
+                            <div className='hover:text-red-500 cursor-pointer' onClick={() => handleRemoveSubCategory(index)}>
                               <IoClose size={20} />
                             </div>
                           </div>
