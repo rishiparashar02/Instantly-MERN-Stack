@@ -322,6 +322,34 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
                 </div>
               </div>
 
+              <div className='grid gap-1'>
+                <label htmlFor='unit' className='font-medium'>Unit</label>
+                <input
+                  id='unit'
+                  type='text'
+                  placeholder='Enter product unit'
+                  name='unit'
+                  value={data.unit}
+                  onChange={handleChange}
+                  required
+                  className='bg-blue-50 p-2 outline-none border focus-within:border-primary-200 rounded'
+                />
+              </div>
+
+              <div className='grid gap-1'>
+                <label htmlFor='stock' className='font-medium'>Number of Stock</label>
+                <input
+                  id='stock'
+                  type='number'
+                  placeholder='Enter product stock'
+                  name='stock'
+                  value={data.stock}
+                  onChange={handleChange}
+                  required
+                  className='bg-blue-50 p-2 outline-none border focus-within:border-primary-200 rounded'
+                />
+              </div>
+
 
 
 
