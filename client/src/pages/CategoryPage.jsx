@@ -42,6 +42,24 @@ const CategoryPage = () => {
     }
 
 
+    const handleDeleteCategory = async()=>{
+        try {
+            const response = await Axios({
+                ...SummaryApi.deleteCategory,
+                data : deleteCategory
+            })
+
+            const { data : responseData } = response
+
+            if(responseData.success){
+                toast.success(responseData.message)
+                fetchCategory()
+                setOpenConfirmBoxDelete(false)
+            }
+        } catch (error) {
+            AxiosToastError(error)
+        }
+    }
 
   return (
     <section className=''>
@@ -55,9 +73,16 @@ const CategoryPage = () => {
             )
         }
 
+
         {
             loading && (
                 <Loading/>
+            )
+        }
+
+        {
+            openEdit && (
+                <EditCategory data={editData} close={()=>setOpenEdit(false)} fetchData={fetchCategory}/>
             )
         }
 
