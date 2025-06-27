@@ -165,6 +165,41 @@ const ProductDisplayPage = () => {
            
 
             <h2 className='font-semibold'>Why shop from Instantly? </h2>
+            <div>
+                  <div className='flex  items-center gap-4 my-4'>
+                      <img
+                        src={image1}
+                        alt='superfast delivery'
+                        className='w-20 h-20'
+                      />
+                      <div className='text-sm'>
+                        <div className='font-semibold'>Superfast Delivery</div>
+                        <p>Get your orer delivered to your doorstep at the earliest from dark stores near you.</p>
+                      </div>
+                  </div>
+                  <div className='flex  items-center gap-4 my-4'>
+                      <img
+                        src={image2}
+                        alt='Best prices offers'
+                        className='w-20 h-20'
+                      />
+                      <div className='text-sm'>
+                        <div className='font-semibold'>Best Prices & Offers</div>
+                        <p>Best price destination with offers directly from the nanufacturers.</p>
+                      </div>
+                  </div>
+                  <div className='flex  items-center gap-4 my-4'>
+                      <img
+                        src={image3}
+                        alt='Wide Assortment'
+                        className='w-20 h-20'
+                      />
+                      <div className='text-sm'>
+                        <div className='font-semibold'>Wide Assortment</div>
+                        <p>Choose from 5000+ products across food personal care, household & other categories.</p>
+                      </div>
+                  </div>
+            </div>
 
             {/****only mobile */}
             <div className='my-4 grid gap-3 '>
