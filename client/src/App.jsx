@@ -9,7 +9,7 @@ import { setAllCategory, setAllSubCategory, setLoadingCategory } from './store/p
 import { useDispatch } from 'react-redux';
 import Axios from './utils/Axios';
 import SummaryApi from './common/SummaryApi';
-// import GlobalProvider from './provider/GlobalProvider.jsx';
+import GlobalProvider from './provider/GlobalProvider';
 import CartMobileLink from './components/CartMobile';
 
 function App() {
@@ -66,8 +66,7 @@ function App() {
   }, [])
 
   return (
-    // <GlobalProvider>
-    <div>
+    <GlobalProvider>
       <Header />
       <main className='min-h-[78vh]'>
         <Outlet />
@@ -79,8 +78,7 @@ function App() {
           <CartMobileLink />
         )
       }
-    {/* </GlobalProvider> */}
-    </div>
+    </GlobalProvider>
   )
 }
 
