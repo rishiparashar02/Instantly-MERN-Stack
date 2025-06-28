@@ -158,4 +158,4 @@ const CheckoutPage = () => {
   )
 }
 
-export default CheckoutPage
+export default CheckoutPage 

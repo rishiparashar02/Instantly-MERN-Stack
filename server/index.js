@@ -50,4 +50,3 @@ connectDB().then(()=>{
         console.log("Server is running",PORT)
     })
 })
-
