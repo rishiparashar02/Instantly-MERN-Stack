@@ -9,7 +9,7 @@ import { setAllCategory, setAllSubCategory, setLoadingCategory } from './store/p
 import { useDispatch } from 'react-redux';
 import Axios from './utils/Axios';
 import SummaryApi from './common/SummaryApi';
-import GlobalProvider from './provider/GlobalProvider';
+import GlobalProvider from './provider/GlobalProvider.jsx';
 import CartMobileLink from './components/CartMobile';
 
 function App() {
