@@ -24,12 +24,12 @@ const UserMenu = ({ close }) => {
       if (response.data.success) {
         if (close) {
           close()
-        };
+        }
         dispatch(logout())
         localStorage.clear()
         toast.success(response.data.message)
         navigate("/")
-      };
+      }
     } catch (error) {
       console.log(error)
       AxiosToastError(error)
@@ -41,10 +41,9 @@ const UserMenu = ({ close }) => {
       close()
     }
   }
-  console.log(user.role)
   return (
     <div>
-      <div className='font-semibold w-auto'>My Account</div>
+      <div className='font-semibold'>My Account</div>
       <div className='text-sm flex items-center gap-2'>
         <span className='max-w-52 text-ellipsis line-clamp-1'>{user.name || user.mobile} <span className='text-medium text-red-600'>{user.role === "ADMIN" ? "(Admin)" : ""}</span></span>
         <Link onClick={handleClose} to={"/dashboard/profile"} className='hover:text-primary-200'>
@@ -72,6 +71,16 @@ const UserMenu = ({ close }) => {
             <Link onClick={handleClose} to={"/dashboard/upload-product"} className='px-2 hover:bg-orange-200 py-1'>Upload Product</Link>
           )
         }
+
+        {
+          isAdmin(user.role) && (
+            <Link onClick={handleClose} to={"/dashboard/product"} className='px-2 hover:bg-orange-200 py-1'>Product</Link>
+          )
+        }
+
+        <Link onClick={handleClose} to={"/dashboard/myorders"} className='px-2 hover:bg-orange-200 py-1'>My Orders</Link>
+
+        <Link onClick={handleClose} to={"/dashboard/address"} className='px-2 hover:bg-orange-200 py-1'>Save Address</Link>
 
         <button onClick={handleLogout} className='text-left px-2 hover:bg-orange-200 py-1'>Log Out</button>
 

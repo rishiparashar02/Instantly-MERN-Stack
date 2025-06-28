@@ -54,6 +54,9 @@ const ForgotPassword = () => {
         } catch (error) {
             AxiosToastError(error)
         }
+
+
+
     }
 
     return (

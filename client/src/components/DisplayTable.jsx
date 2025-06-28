@@ -6,6 +6,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
+
+
 const DisplayTable = ({ data, column }) => {
   const table = useReactTable({
     data,

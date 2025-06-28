@@ -25,7 +25,7 @@ export async function registerUserController(request,response){
 
         if(user){
             return response.json({
-                message : "Already registered email",
+                message : "Email Already registered",
                 error : true,
                 success : false
             })
@@ -89,7 +89,7 @@ export async function verifyEmailController(request,response){
         })
 
         return response.json({
-            message : "email verification done",
+            message : "Email verified successfully",
             success : true,
             error : false
         })
@@ -197,7 +197,7 @@ export async function logoutController(request,response){
         })
 
         return response.json({
-            message : "Succesfully Loged out",
+            message : "Successfully Logged Out",
             error : false,
             success : true
         })
@@ -375,7 +375,7 @@ export async function verifyForgotPasswordOtp(request,response){
         })
         
         return response.json({
-            message : "Otp Verified Successfully",
+            message : "OTP verified Successfully",
             error : false,
             success : true
         })

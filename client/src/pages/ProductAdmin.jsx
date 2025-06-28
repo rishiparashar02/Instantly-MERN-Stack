@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SummaryApi from '../common/SummaryApi.js'
+import SummaryApi from '../common/SummaryApi'
 import AxiosToastError from '../utils/AxiosToastError'
 import Axios from '../utils/Axios'
 import Loading from '../components/Loading'
@@ -100,7 +100,7 @@ const ProductAdmin = () => {
         <div className='min-h-[55vh]'>
           <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
             {
-              productData.map((p) => {
+              productData.map((p, index) => {
                 return (
                   <ProductCardAdmin data={p} fetchProductData={fetchProductData} />
                 )

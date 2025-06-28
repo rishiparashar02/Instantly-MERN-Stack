@@ -144,8 +144,6 @@ const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
     } catch (error) {
       AxiosToastError(error)
     }
-
-
   }
 
   return (

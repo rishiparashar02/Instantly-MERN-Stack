@@ -8,6 +8,7 @@ import EditCategory from '../components/EditCategory'
 import CofirmBox from '../components/CofirmBox'
 import toast from 'react-hot-toast'
 import AxiosToastError from '../utils/AxiosToastError'
+import { useSelector } from 'react-redux'
 
 const CategoryPage = () => {
     const [openUploadCategory,setOpenUploadCategory] = useState(false)
@@ -22,6 +23,12 @@ const CategoryPage = () => {
     const [deleteCategory,setDeleteCategory] = useState({
         _id : ""
     })
+    // const allCategory = useSelector(state => state.product.allCategory)
+
+
+    // useEffect(()=>{
+    //     setCategoryData(allCategory)
+    // },[allCategory])
     
     const fetchCategory = async()=>{
         try {

@@ -22,7 +22,6 @@ const Home = () => {
         return filterData ? true : null
       })
       const url = `/${valideURLConvert(cat)}-${id}/${valideURLConvert(subcategory.name)}-${subcategory._id}`
-      // const url = `${VITE_API_URL}`
 
       navigate(url)
       console.log(url)

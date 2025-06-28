@@ -3,7 +3,7 @@ import CardLoading from '../components/CardLoading'
 import SummaryApi from '../common/SummaryApi'
 import Axios from '../utils/Axios'
 import AxiosToastError from '../utils/AxiosToastError'
-import CardProduct from '../components/CardProduct'
+import CartProduct from '../components/CartProduct'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useLocation } from 'react-router-dom'
 import noDataImage from '../assets/Image/Nothing-yet-here.png'
@@ -32,23 +32,14 @@ const SearchPage = () => {
 
       if (responseData.success) {
         if (responseData.page == 1) {
-          if (responseData.data.length === 0) {
-            console.log('No products found on page 1');
-            setData([]);
-          } else {
-            setData(responseData.data);
-          }
+          setData(responseData.data)
         } else {
-          if (Array.isArray(responseData.data) && responseData.data.length > 0) {
-            setData((prev) => {
-              return [
-                ...prev,
-                ...responseData.data // Append new data to the existing state
-              ];
-            });
-          } else {
-            console.log(`No more products to load for page ${responseData.page}`);
-          }
+          setData((preve) => {
+            return [
+              ...preve,
+              ...responseData.data
+            ]
+          })
         }
         setTotalPage(responseData.totalPage)
         console.log(responseData)
@@ -86,7 +77,7 @@ const SearchPage = () => {
             {
               data.map((p, index) => {
                 return (
-                  <CardProduct data={p} key={p?._id + "searchProduct" + index} />
+                  <CartProduct data={p} key={p?._id + "searchProduct" + index} />
                 )
               })
             }
@@ -108,9 +99,6 @@ const SearchPage = () => {
           //no data 
           !data[0] && !loading && (
             <div className='flex flex-col justify-center items-center w-full mx-auto'>
-              <h3 className='font-semibold text-center'>
-              "Our search functionality is currently under maintenance. Please try again later."
-              </h3>
               <img
                 src={noDataImage}
                 className='w-full h-full max-w-xs max-h-xs block'

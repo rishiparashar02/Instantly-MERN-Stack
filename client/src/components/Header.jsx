@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import logo from '../assets/Image/Logo.png'
+import logo from '../assets/Image/logo.png'
 import Search from './Search'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -11,7 +11,6 @@ import UserMenu from './UserMenu';
 import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees';
 import { useGlobalContext } from '../provider/GlobalProvider';
 import DisplayCartItem from './DisplayCartItem';
-import CartMobileLink from './CartMobile';
 
 const Header = () => {
     const [isMobile] = useMobile()
@@ -21,9 +20,9 @@ const Header = () => {
     const user = useSelector((state) => state?.user)
     const [openUserMenu, setOpenUserMenu] = useState(false)
     const cartItem = useSelector(state => state.cartItem.cart)
-    const [totalPrice, setTotalPrice] = useState(0)
-    const [totalQty, setTotalQty] = useState(0)
-    // const { totalPrice, totalQty} = useGlobalContext()
+    // const [totalPrice,setTotalPrice] = useState(0)
+    // const [totalQty,setTotalQty] = useState(0)
+    const { totalPrice, totalQty } = useGlobalContext()
     const [openCartSection, setOpenCartSection] = useState(false)
 
     const redirectToLoginPage = () => {
@@ -44,24 +43,24 @@ const Header = () => {
     }
 
     //total item and total price
-    useEffect(() => {
-        const qty = cartItem.reduce((preve, curr) => {
-            return preve + curr.quantity
-        }, 0)
-        setTotalQty(qty)
+    // useEffect(()=>{
+    //     const qty = cartItem.reduce((preve,curr)=>{
+    //         return preve + curr.quantity
+    //     },0)
+    //     setTotalQty(qty)
 
-        const tPrice = cartItem.reduce((preve, curr) => {
-            return preve + (curr.productId.price * curr.quantity)
-        }, 0)
-        setTotalPrice(tPrice)
+    //     const tPrice = cartItem.reduce((preve,curr)=>{
+    //         return preve + (curr.productId.price * curr.quantity)
+    //     },0)
+    //     setTotalPrice(tPrice)
 
-    }, [cartItem])
+    // },[cartItem])
 
     return (
-        <header className='h-24 lg:h-20 lg:shadow-md z-40 sticky top-0 flex flex-col justify-center gap-1 bg-white'>
+        <header className='h-24 lg:h-20 lg:shadow-md sticky top-0 z-40 flex flex-col justify-center gap-1 bg-white'>
             {
                 !(isSearchPage && isMobile) && (
-                    <div className='h-22 container mx-auto flex items-center px-2 justify-between'>
+                    <div className='container mx-auto flex items-center px-2 justify-between'>
                         {/**logo */}
                         <div className='h-full'>
                             <Link to={"/"} className='h-full flex justify-center items-center'>
@@ -89,33 +88,11 @@ const Header = () => {
 
 
                         {/**login and my cart */}
-                        <div className='flex items-center gap-2'>
+                        <div className=''>
                             {/**user icons display in only mobile version**/}
                             <button className='text-neutral-600 lg:hidden' onClick={handleMobileUser}>
                                 <FaRegCircleUser size={26} />
-                                <CartMobileLink />
                             </button>
-
-                            {/** Mobile Cart Button (added to mobile view, this will show same as desktop version) */}
-                            <div className='lg:hidden'>
-                                <button onClick={() => setOpenCartSection(true)} className='flex items-center gap-1 bg-green-800 hover:bg-green-700 px-2 py-2 rounded text-white w-full'>
-                                    <div className='animate-bounce'>
-                                        <BsCart4 size={22} />
-                                    </div>
-                                    <div className='font-semibold text-sm'>
-                                        {
-                                            cartItem[0] ? (
-                                                <div>
-                                                    <p>{totalQty} Items</p>
-                                                    <p>{DisplayPriceInRupees(totalPrice)}</p>
-                                                </div>
-                                            ) : (
-                                                <p></p>
-                                            )
-                                        }
-                                    </div>
-                                </button>
-                            </div>
 
                             {/**Desktop**/}
                             <div className='hidden lg:flex  items-center gap-10'>
@@ -175,7 +152,6 @@ const Header = () => {
             <div className='container mx-auto px-2 lg:hidden'>
                 <Search />
             </div>
-
 
             {
                 openCartSection && (
